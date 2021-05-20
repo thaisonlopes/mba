@@ -1,0 +1,651 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{teste}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{pyspark}\PY{n+nn}{.}\PY{n+nn}{sql} \PY{k}{import} \PY{n}{HiveContext}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{sqlContext} \PY{o}{=} \PY{n}{HiveContext}\PY{p}{(}\PY{n}{sc}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{sqlContext}\PY{o}{.}\PY{n}{sql}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{show databases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
++------------+
+|databaseName|
++------------+
+|     default|
++------------+
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{n}{spark}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:} <pyspark.sql.session.SparkSession at 0x7faefc7ec0b8>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{df} \PY{o}{=} \PY{n}{spark}\PY{o}{.}\PY{n}{read}\PY{o}{.}\PY{n}{csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data/pessoas.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df}\PY{o}{.}\PY{n}{write}\PY{o}{.}\PY{n}{parquet}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{parquet}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        NameError                                 Traceback (most recent call last)
+
+        <ipython-input-4-7008b5bc2530> in <module>()
+    ----> 1 df.write.parquet("parquet")
+    
+
+        NameError: name 'df' is not defined
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df}\PY{o}{.}\PY{n}{write}\PY{o}{.}\PY{n}{saveAsTable}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.teste}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        Py4JJavaError                             Traceback (most recent call last)
+
+        /opt/spark/python/pyspark/sql/utils.py in deco(*a, **kw)
+         62         try:
+    ---> 63             return f(*a, **kw)
+         64         except py4j.protocol.Py4JJavaError as e:
+
+
+        /opt/spark/python/lib/py4j-0.10.7-src.zip/py4j/protocol.py in get\_return\_value(answer, gateway\_client, target\_id, name)
+        327                     "An error occurred while calling \{0\}\{1\}\{2\}.\textbackslash{}n".
+    --> 328                     format(target\_id, ".", name), value)
+        329             else:
+
+
+        Py4JJavaError: An error occurred while calling o104.saveAsTable.
+    : org.apache.spark.sql.AnalysisException: Can not create the managed table('`default`.`teste`'). The associated location('file:/mnt/notebooks/spark-warehouse/teste') already exists.;
+    	at org.apache.spark.sql.catalyst.catalog.SessionCatalog.validateTableLocation(SessionCatalog.scala:336)
+    	at org.apache.spark.sql.execution.command.CreateDataSourceTableAsSelectCommand.run(createDataSourceTables.scala:170)
+    	at org.apache.spark.sql.execution.command.DataWritingCommandExec.sideEffectResult\$lzycompute(commands.scala:104)
+    	at org.apache.spark.sql.execution.command.DataWritingCommandExec.sideEffectResult(commands.scala:102)
+    	at org.apache.spark.sql.execution.command.DataWritingCommandExec.doExecute(commands.scala:122)
+    	at org.apache.spark.sql.execution.SparkPlan\$\$anonfun\$execute\$1.apply(SparkPlan.scala:131)
+    	at org.apache.spark.sql.execution.SparkPlan\$\$anonfun\$execute\$1.apply(SparkPlan.scala:127)
+    	at org.apache.spark.sql.execution.SparkPlan\$\$anonfun\$executeQuery\$1.apply(SparkPlan.scala:155)
+    	at org.apache.spark.rdd.RDDOperationScope\$.withScope(RDDOperationScope.scala:151)
+    	at org.apache.spark.sql.execution.SparkPlan.executeQuery(SparkPlan.scala:152)
+    	at org.apache.spark.sql.execution.SparkPlan.execute(SparkPlan.scala:127)
+    	at org.apache.spark.sql.execution.QueryExecution.toRdd\$lzycompute(QueryExecution.scala:80)
+    	at org.apache.spark.sql.execution.QueryExecution.toRdd(QueryExecution.scala:80)
+    	at org.apache.spark.sql.DataFrameWriter\$\$anonfun\$runCommand\$1.apply(DataFrameWriter.scala:668)
+    	at org.apache.spark.sql.DataFrameWriter\$\$anonfun\$runCommand\$1.apply(DataFrameWriter.scala:668)
+    	at org.apache.spark.sql.execution.SQLExecution\$\$anonfun\$withNewExecutionId\$1.apply(SQLExecution.scala:78)
+    	at org.apache.spark.sql.execution.SQLExecution\$.withSQLConfPropagated(SQLExecution.scala:125)
+    	at org.apache.spark.sql.execution.SQLExecution\$.withNewExecutionId(SQLExecution.scala:73)
+    	at org.apache.spark.sql.DataFrameWriter.runCommand(DataFrameWriter.scala:668)
+    	at org.apache.spark.sql.DataFrameWriter.createTable(DataFrameWriter.scala:465)
+    	at org.apache.spark.sql.DataFrameWriter.saveAsTable(DataFrameWriter.scala:444)
+    	at org.apache.spark.sql.DataFrameWriter.saveAsTable(DataFrameWriter.scala:400)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.lang.reflect.Method.invoke(Method.java:498)
+    	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+    	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)
+    	at py4j.Gateway.invoke(Gateway.java:282)
+    	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+    	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+    	at py4j.GatewayConnection.run(GatewayConnection.java:238)
+    	at java.lang.Thread.run(Thread.java:748)
+
+
+        
+    During handling of the above exception, another exception occurred:
+
+
+        AnalysisException                         Traceback (most recent call last)
+
+        <ipython-input-12-88ab7c598614> in <module>()
+    ----> 1 df.write.saveAsTable("default.teste")
+    
+
+        /opt/spark/python/pyspark/sql/readwriter.py in saveAsTable(self, name, format, mode, partitionBy, **options)
+        773         if format is not None:
+        774             self.format(format)
+    --> 775         self.\_jwrite.saveAsTable(name)
+        776 
+        777     @since(1.4)
+
+
+        /opt/spark/python/lib/py4j-0.10.7-src.zip/py4j/java\_gateway.py in \_\_call\_\_(self, *args)
+       1255         answer = self.gateway\_client.send\_command(command)
+       1256         return\_value = get\_return\_value(
+    -> 1257             answer, self.gateway\_client, self.target\_id, self.name)
+       1258 
+       1259         for temp\_arg in temp\_args:
+
+
+        /opt/spark/python/pyspark/sql/utils.py in deco(*a, **kw)
+         67                                              e.java\_exception.getStackTrace()))
+         68             if s.startswith('org.apache.spark.sql.AnalysisException: '):
+    ---> 69                 raise AnalysisException(s.split(': ', 1)[1], stackTrace)
+         70             if s.startswith('org.apache.spark.sql.catalyst.analysis'):
+         71                 raise AnalysisException(s.split(': ', 1)[1], stackTrace)
+
+
+        AnalysisException: "Can not create the managed table('`default`.`teste`'). The associated location('file:/mnt/notebooks/spark-warehouse/teste') already exists.;"
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{sc}\PY{o}{.}\PY{n}{setProperty}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hive.metastore.uris}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{thrift://hive\PYZhy{}metastore:9083}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{spark} \PY{o}{=} \PY{n}{SparkSession} \PYZbs{}
+            \PY{o}{.}\PY{n}{builder} \PYZbs{}
+            \PY{o}{.}\PY{n}{appName}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Python Spark SQL Hive integration example}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PYZbs{}
+            \PY{o}{.}\PY{n}{config}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{spark.sql.uris}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{thrift://hive\PYZhy{}metastore:9083}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PYZbs{}
+            \PY{o}{.}\PY{n}{enableHiveSupport}\PY{p}{(}\PY{p}{)} \PYZbs{}
+            \PY{o}{.}\PY{n}{getOrCreate}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{spark}\PY{o}{.}\PY{n}{sql}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{show databases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
++------------+
+|databaseName|
++------------+
+|     default|
++------------+
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{conf} \PY{o}{=} \PY{n}{pyspark}\PY{o}{.}\PY{n}{SparkConf}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        NameError                                 Traceback (most recent call last)
+
+        <ipython-input-14-e4e325f4b279> in <module>()
+    ----> 1 conf = pyspark.SparkConf()
+    
+
+        NameError: name 'pyspark' is not defined
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pyspark}
+        \PY{n}{conf} \PY{o}{=} \PY{n}{pyspark}\PY{o}{.}\PY{n}{SparkConf}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{conf}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{spark.executor.uri}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{thrift://hive\PYZhy{}metastore:9083}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} <pyspark.conf.SparkConf at 0x7fb782ba36a0>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{spark} \PY{o}{=} \PY{n}{pyspark}\PY{o}{.}\PY{n}{SparkContext}\PY{p}{(}\PY{n}{conf}\PY{o}{=}\PY{n}{conf}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        ValueError                                Traceback (most recent call last)
+
+        <ipython-input-3-9a7977a21e54> in <module>()
+    ----> 1 spark = pyspark.SparkContext(conf=conf)
+    
+
+        /opt/spark/python/pyspark/context.py in \_\_init\_\_(self, master, appName, sparkHome, pyFiles, environment, batchSize, serializer, conf, gateway, jsc, profiler\_cls)
+        131                     " note this option will be removed in Spark 3.0")
+        132 
+    --> 133         SparkContext.\_ensure\_initialized(self, gateway=gateway, conf=conf)
+        134         try:
+        135             self.\_do\_init(master, appName, sparkHome, pyFiles, environment, batchSize, serializer,
+
+
+        /opt/spark/python/pyspark/context.py in \_ensure\_initialized(cls, instance, gateway, conf)
+        330                         " created by \%s at \%s:\%s "
+        331                         \% (currentAppName, currentMaster,
+    --> 332                             callsite.function, callsite.file, callsite.linenum))
+        333                 else:
+        334                     SparkContext.\_active\_spark\_context = instance
+
+
+        ValueError: Cannot run multiple SparkContexts at once; existing SparkContext(app=pyspark-shell, master=local[*]) created by <module> at /opt/anaconda3/lib/python3.6/site-packages/IPython/utils/py3compat.py:188 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{p}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} <pyspark.sql.context.SQLContext at 0x7f7046c16d30>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{p}\PY{o}{.}\PY{n}{sql}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{show databases}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
++------------+
+|databaseName|
++------------+
+|     default|
++------------+
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{jdbcDF} \PY{o}{=} \PY{n}{spark}\PY{o}{.}\PY{n}{read} \PYZbs{}
+            \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{jdbc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PYZbs{}
+            \PY{o}{.}\PY{n}{option}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{driver}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{com.facebook.presto.jdbc.PrestoDriver}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PYZbs{}
+            \PY{o}{.}\PY{n}{option}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{url}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{jdbc:presto://presto:8080/hive/default}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PYZbs{}
+            \PY{o}{.}\PY{n}{option}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hive}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PYZbs{}
+            \PY{o}{.}\PY{n}{option}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dbtable}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pessoas}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PYZbs{}
+            \PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        Py4JJavaError                             Traceback (most recent call last)
+
+        <ipython-input-6-11b5a8adaa97> in <module>()
+    ----> 1 jdbcDF = spark.read     .format("jdbc")     .option("driver", "com.facebook.presto.jdbc.PrestoDriver")     .option("url", "jdbc:presto://presto:8080/hive/default")     .option("user", "hive")     .option("dbtable", "pessoas")     .load()
+    
+
+        /opt/spark/python/pyspark/sql/readwriter.py in load(self, path, format, schema, **options)
+        170             return self.\_df(self.\_jreader.load(self.\_spark.\_sc.\_jvm.PythonUtils.toSeq(path)))
+        171         else:
+    --> 172             return self.\_df(self.\_jreader.load())
+        173 
+        174     @since(1.4)
+
+
+        /opt/spark/python/lib/py4j-0.10.7-src.zip/py4j/java\_gateway.py in \_\_call\_\_(self, *args)
+       1255         answer = self.gateway\_client.send\_command(command)
+       1256         return\_value = get\_return\_value(
+    -> 1257             answer, self.gateway\_client, self.target\_id, self.name)
+       1258 
+       1259         for temp\_arg in temp\_args:
+
+
+        /opt/spark/python/pyspark/sql/utils.py in deco(*a, **kw)
+         61     def deco(*a, **kw):
+         62         try:
+    ---> 63             return f(*a, **kw)
+         64         except py4j.protocol.Py4JJavaError as e:
+         65             s = e.java\_exception.toString()
+
+
+        /opt/spark/python/lib/py4j-0.10.7-src.zip/py4j/protocol.py in get\_return\_value(answer, gateway\_client, target\_id, name)
+        326                 raise Py4JJavaError(
+        327                     "An error occurred while calling \{0\}\{1\}\{2\}.\textbackslash{}n".
+    --> 328                     format(target\_id, ".", name), value)
+        329             else:
+        330                 raise Py4JError(
+
+
+        Py4JJavaError: An error occurred while calling o88.load.
+    : java.lang.ClassNotFoundException: com.facebook.presto.jdbc.PrestoDriver
+    	at java.net.URLClassLoader.findClass(URLClassLoader.java:382)
+    	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+    	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+    	at org.apache.spark.sql.execution.datasources.jdbc.DriverRegistry\$.register(DriverRegistry.scala:45)
+    	at org.apache.spark.sql.execution.datasources.jdbc.JDBCOptions\$\$anonfun\$5.apply(JDBCOptions.scala:99)
+    	at org.apache.spark.sql.execution.datasources.jdbc.JDBCOptions\$\$anonfun\$5.apply(JDBCOptions.scala:99)
+    	at scala.Option.foreach(Option.scala:257)
+    	at org.apache.spark.sql.execution.datasources.jdbc.JDBCOptions.<init>(JDBCOptions.scala:99)
+    	at org.apache.spark.sql.execution.datasources.jdbc.JDBCOptions.<init>(JDBCOptions.scala:35)
+    	at org.apache.spark.sql.execution.datasources.jdbc.JdbcRelationProvider.createRelation(JdbcRelationProvider.scala:32)
+    	at org.apache.spark.sql.execution.datasources.DataSource.resolveRelation(DataSource.scala:318)
+    	at org.apache.spark.sql.DataFrameReader.loadV1Source(DataFrameReader.scala:223)
+    	at org.apache.spark.sql.DataFrameReader.load(DataFrameReader.scala:211)
+    	at org.apache.spark.sql.DataFrameReader.load(DataFrameReader.scala:167)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.lang.reflect.Method.invoke(Method.java:498)
+    	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+    	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)
+    	at py4j.Gateway.invoke(Gateway.java:282)
+    	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+    	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+    	at py4j.GatewayConnection.run(GatewayConnection.java:238)
+    	at java.lang.Thread.run(Thread.java:748)
+
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
